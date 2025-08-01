@@ -1,0 +1,6 @@
+@Imoveis_Api_HostAddress = http://localhost:5078
+
+GET {{Imoveis_Api_HostAddress}}/  /
+Accept: application/json
+
+###
