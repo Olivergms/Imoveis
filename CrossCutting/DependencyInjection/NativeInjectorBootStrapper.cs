@@ -13,12 +13,16 @@ public static class NativeInjectorBootStrapper
 {
     public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(op =>
-            op.UseSqlServer(configuration["ConnectionStrings:WebApiDataBase"]));
+        var config = configuration["ConnectionStrings:WebApiDataBase"];
+        //services.AddDbContext<ApplicationDbContext>(op =>
+        //    op.UseSqlServer(configuration["ConnectionStrings:WebApiDataBase"]));
 
 
         services.AddScoped<IProprietarioRepository, ProprietarioRepository>();
         services.AddScoped<IProprietarioService, ProprietarioService>();
+
+        services.AddScoped<IImovelRepository, ImovelRepository>();
+        services.AddScoped<IImovelService, ImovelService>();
     }
 
 }

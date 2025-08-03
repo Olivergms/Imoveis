@@ -1,8 +1,7 @@
-﻿
-
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repositories;
 using Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories;
 
@@ -13,19 +12,22 @@ public class ProprietarioRepository : IProprietarioRepository
     public ProprietarioRepository(ApplicationDbContext context) => _db = context;
 
 
-    public Task DeleteAsync(Proprietario entity)
+    public async Task DeleteAsync(Proprietario entity)
     {
-        throw new NotImplementedException();
+        
+        _db.Proprietarios.Remove(entity);
+
+        await _db.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<Proprietario>> FindallAsync()
+    public async Task<IEnumerable<Proprietario>> FindallAsync()
     {
-        throw new NotImplementedException();
+        return _db.Proprietarios.AsNoTracking().ToList();
     }
 
-    public Task<Proprietario> FindByIdAsync(int id)
+    public async Task<Proprietario> FindByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _db.Proprietarios.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task InsertAsync(Proprietario entity)
@@ -34,8 +36,12 @@ public class ProprietarioRepository : IProprietarioRepository
         await _db.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(Proprietario entity)
+    public async Task UpdateAsync(Proprietario entity)
     {
-        throw new NotImplementedException();
+        var proprietario = await _db.Proprietarios.FindAsync(entity.Id);
+        if (proprietario == null) throw new Exception("Rota não encontrada");
+
+        _db.Entry(proprietario).CurrentValues.SetValues(entity);
+        await _db.SaveChangesAsync();
     }
 }
