@@ -25,12 +25,15 @@ public class ImovelRepository : IImovelRepository
 
     public async Task<IEnumerable<Imovel>> FindallAsync()
     {
-        return await _db.Imoveis.AsNoTracking().ToListAsync();
+        return await _db.Imoveis.AsNoTracking().OrderBy(x => x.Concluido).ToListAsync() ;
     }
 
     public async Task<Imovel> FindByIdAsync(int id)
     {
-        return await _db.Imoveis.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await _db.Imoveis
+            .Include(x => x.Proprietario)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task InsertAsync(Imovel entity)

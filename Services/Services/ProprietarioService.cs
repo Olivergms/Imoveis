@@ -45,11 +45,11 @@ public class ProprietarioService : IProprietarioService
 		}
     }
 
-    public async Task<Proprietario> FindByIdsync(int id)
+    public async Task<Proprietario> FindByDocumentAsync(string documento)
     {
 		try
 		{
-			var proprietario = await _proprietarioRepository.FindByIdAsync(id);
+			var proprietario = await _proprietarioRepository.FindByDocument(documento);
 
 			if (proprietario == null) throw new Exception("Proprietário não encontrado");
 
@@ -66,6 +66,9 @@ public class ProprietarioService : IProprietarioService
     {
 		try
 		{
+			var proprietario = await _proprietarioRepository.FindByDocument(dto.Documento);
+
+			if (proprietario != null) throw new Exception("Proprietário já cadastrado");
 			await _proprietarioRepository.InsertAsync(new Proprietario(dto));
 		}
 		catch (Exception ex)

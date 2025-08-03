@@ -64,6 +64,8 @@ public class ImovelService : IImovelService
             var imovel = await _repository.FindByIdAsync(id);
             if (imovel == null) throw new Exception("Imovel não encontrado");
 
+            if (imovel.Area == null || imovel.Endereco == null) throw new Exception("Preencha as informações do imovel para finalizar o cadastro.");
+
             imovel.Concluido = true;
 
             await _repository.UpdateAsync(imovel);
@@ -100,6 +102,8 @@ public class ImovelService : IImovelService
             var imovel = await _repository.FindByIdAsync(ImovelDto.Id);
 
             if (imovel == null) throw new Exception("Imovel não encontrado");
+
+            if (ImovelDto.Area < 1) throw new Exception("Area do imovel não pode ser 0 ou negativo");
 
             imovel.AtualizaValores(ImovelDto);
             await _repository.UpdateAsync(imovel);

@@ -44,12 +44,12 @@ namespace Imoveis_Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Proprietario>> FindById([FromRoute]int id)
+        [HttpGet("{documento}")]
+        public async Task<ActionResult<Proprietario>> FindById([FromRoute]string documento)
         {
             try
             {
-                var proprietario = await _service.FindByIdsync(id);
+                var proprietario = await _service.FindByDocumentAsync(documento);
 
                 return Ok(proprietario);
             }

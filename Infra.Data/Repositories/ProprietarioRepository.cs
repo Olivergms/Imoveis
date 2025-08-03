@@ -25,6 +25,11 @@ public class ProprietarioRepository : IProprietarioRepository
         return _db.Proprietarios.AsNoTracking().ToList();
     }
 
+    public async Task<Proprietario> FindByDocument(string document)
+    {
+        return await _db.Proprietarios.FirstOrDefaultAsync(x => x.Documento.ToUpper().Equals(document.ToUpper()));
+    }
+
     public async Task<Proprietario> FindByIdAsync(int id)
     {
         return await _db.Proprietarios.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
