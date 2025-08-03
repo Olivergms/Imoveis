@@ -7,16 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 NativeInjectorBootStrapper.RegisterServices(builder.Services, builder.Configuration);
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDataBase")));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
+app.MapOpenApi();
 app.UseSwaggerUI(op =>
 {
     op.SwaggerEndpoint("/openapi/v1.json", "Imoveis Api");

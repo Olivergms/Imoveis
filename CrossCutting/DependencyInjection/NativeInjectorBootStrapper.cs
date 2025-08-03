@@ -14,8 +14,8 @@ public static class NativeInjectorBootStrapper
     public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
         var config = configuration["ConnectionStrings:WebApiDataBase"];
-        //services.AddDbContext<ApplicationDbContext>(op =>
-        //    op.UseSqlServer(configuration["ConnectionStrings:WebApiDataBase"]));
+        services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(configuration.GetConnectionString("WebApiDataBase")));
 
 
         services.AddScoped<IProprietarioRepository, ProprietarioRepository>();

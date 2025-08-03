@@ -1,7 +1,7 @@
 services:
     postgres-db:
         image: postgres:15
-        container_name: postgres_db_travelroute
+        container_name: postgres_db_imoveis
         ports: 
             - '5432:5432'
         networks:
@@ -14,6 +14,21 @@ services:
             interval: 10s
             timeout: 5s
             retries: 5  
+    imoveisapi:
+        container_name: imoveis-api-docker
+        restart: always
+        build:
+             context: .
+             dockerfile: Dockerfile
+        ports: 
+             - '8080:8080'
+             - '5020:5020'
+        environment:
+             - ASPNETCORE_ENVIRONMENT=Docker
+        depends_on:
+             - postgres-db
+        networks:
+             - my_network
 
 networks:
     my_network:
