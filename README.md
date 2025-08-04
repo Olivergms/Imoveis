@@ -8,12 +8,12 @@ Tecnologias utilizadas :
 ---
 
 ### Pré-Requisitos
- #### Você tem duas maneiras de executar a api, via **Docker** ou **Local**
+ #### Você tem duas maneiras de executar a api, via **Docker** ou **Visual studio**
 
  #### Docker
 - **Docker Engine**: Certifique-se de que o Docker Engine esteja instalado e em execução no seu sistema (por meio do WSL ou de outro ambiente).
 
-#### Local
+#### Visual studio
 - .NET
 - Visual Studio
 - Banco PostgreSql
@@ -40,4 +40,4 @@ Tecnologias utilizadas :
 
 
 
-> **Note**: Para rodar local você terá que abrir o visual studio e selecionar o perfil `local`. Se o banco não estiver rodando na sua maquina, altere a string de conexão na linha 10 do arquivo `appsettings.json` no projeto `Imoveis-api`. 
+> **Note**: Para rodar no visual studio, você deve selecionar o perfil `local`. Se o banco não estiver rodando na sua maquina, altere a string de conexão na linha 10 do arquivo `appsettings.json` no projeto `Imoveis-api`. 
